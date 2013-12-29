@@ -30,12 +30,12 @@ You can also optionally publish the config-file
 This package offers a `DbView` facade with the same syntax as `View` but accepts a Model instance instead of path to view.
 
     $template = Template::first();
-return DbView::make($template)->with(['foo' => 'Bar'])->render();
+    return DbView::make($template)->with(['foo' => 'Bar'])->render();
 
 Because you're passing a model to `DbView::make()`, db-blade-compiler needs to know which field to compile. By default this is `content` however you can set the field used with either of the following methods:
 
     return DbView::make($template, ['foo' => 'Bar'], [], 'excerpt')->render();
-return DbView::make($template)->field('excerpt')->with(['foo' => 'Bar'])->render();
+    return DbView::make($template)->field('excerpt')->with(['foo' => 'Bar'])->render();
 
 You may set the default column used in the package config.
 
