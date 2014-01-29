@@ -78,8 +78,8 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface {
 
 		$lastModified = strtotime($path->updated_at);
 
-		if ( $lastModified >= $this->files->lastModified($compiled) )
-			echo $lastModified . ' ('.date('r', $lastModified).') > ' . $this->files->lastModified($compiled) . ' ('.date('r', $this->files->lastModified($compiled)).')<br/>';
+		// if ( $lastModified >= $this->files->lastModified($compiled) )
+		// 	echo $lastModified . ' ('.date('r', $lastModified).') > ' . $this->files->lastModified($compiled) . ' ('.date('r', $this->files->lastModified($compiled)).')<br/>';
 
 		return $lastModified >= $this->files->lastModified($compiled);
 	}
