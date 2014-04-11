@@ -17,5 +17,5 @@
             "Flynsarmy\\DbBladeCompiler\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
