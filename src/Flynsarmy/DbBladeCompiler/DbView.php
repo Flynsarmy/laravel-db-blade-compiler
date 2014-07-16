@@ -42,6 +42,8 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable {
 	public function field( $content_field )
 	{
 		$this->content_field = $content_field;
+
+		return $this;
 	}
 
 	/**
