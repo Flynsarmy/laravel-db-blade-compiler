@@ -23,7 +23,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface {
 		// Compile to PHP
 		$contents = $this->compileString($string);
 
-		if ( ! is_null($this->cachePath))
+		if ( ! is_null($this->cachePath) || !Config::get('app.debug'))
 		{
 			$this->files->put($this->getCompiledPath($path), $contents);
 		}
