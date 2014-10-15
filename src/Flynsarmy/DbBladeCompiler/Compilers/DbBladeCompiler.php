@@ -66,6 +66,8 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface {
 	 */
 	public function isExpired($path)
 	{
+		if(Config::get('app.debug')) return true;
+		
 		$compiled = $this->getCompiledPath($path);
 
 		// If the compiled file doesn't exist we will indicate that the view is expired
