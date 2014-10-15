@@ -23,7 +23,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface {
 		// Compile to PHP
 		$contents = $this->compileString($string);
 
-		if ( ! is_null($this->cachePath) || !Config::get('app.debug'))
+		if ( ! is_null($this->cachePath))
 		{
 			$this->files->put($this->getCompiledPath($path), $contents);
 		}
@@ -66,6 +66,8 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface {
 	 */
 	public function isExpired($path)
 	{
+		if(Config::get('app.debug')) return true;
+		
 		$compiled = $this->getCompiledPath($path);
 
 		// If the compiled file doesn't exist we will indicate that the view is expired
