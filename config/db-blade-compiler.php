@@ -14,4 +14,6 @@ return array(
 	 * with DbView::field()
 	 */
 	'model_default_field' => 'content',
+
+    'cache' => false
 );
