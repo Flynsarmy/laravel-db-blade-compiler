@@ -6,7 +6,7 @@
 This package generates and returns a compiled view from a blade-syntax field in your Eloquent model.
 
 
-### Installation
+### Installation (Laravel v < 5)
 
 Require this package in your composer.json and run composer update (or run `composer require flynsarmy/db-blade-compiler:1.*` directly):
 
@@ -25,6 +25,21 @@ You can also optionally publish the config-file
     php artisan config:publish flynsarmy/db-blade-compiler
 
 
+### Installation (Laravel 5.x)
+
+Require this package in your composer.json and run composer update (or run `composer require flynsarmy/db-blade-compiler:2.*` directly):
+
+    "flynsarmy/db-blade-compiler": "2.*"
+
+After updating composer, add the ServiceProvider to the providers array in app/config/app.php
+
+    'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
+
+You have to also publish the config-file
+
+    php artisan vendor:publish
+
+
 ### Usage
 
 This package offers a `DbView` facade with the same syntax as `View` but accepts a Model instance instead of path to view.
@@ -38,6 +53,7 @@ Because you're passing a model to `DbView::make()`, db-blade-compiler needs to k
     return DbView::make($template)->field('excerpt')->with(['foo' => 'Bar'])->render();
 
 You may set the default column used in the package config.
+You can enable using cache in compiling view from a blade-syntax field in your Eloquent model operation by enabling cache config in package config. By default this option is disabled.
 
 
 ### License
