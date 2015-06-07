@@ -8,6 +8,12 @@
             "name": "Flyn San",
             "email": "flynsarmy@gmail.com"
         }
+      ,
+      {
+        "name": "Ebrahim Radi",
+        "email": "ebrahim.radi@gmail.com",
+        "homepage": "http://me2bits.com"
+      }
     ],
     "require": {
         "php": ">=5.3.0"

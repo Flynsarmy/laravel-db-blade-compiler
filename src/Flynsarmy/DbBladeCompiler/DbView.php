@@ -1,24 +1,26 @@
 <?php namespace Flynsarmy\DbBladeCompiler;
 
-use App, View, Closure, Config, ArrayAccess;
-use Illuminate\Support\MessageBag;
-use Illuminate\View\Engines\EngineInterface;
-use Illuminate\Support\Contracts\MessageProviderInterface;
-use Illuminate\Support\Contracts\ArrayableInterface as Arrayable;
-use Illuminate\Support\Contracts\RenderableInterface as Renderable;
-use Flynsarmy\DbBladeCompiler\Compilers\DbBladeCompiler;
-use Illuminate\View\Engines\CompilerEngine;
+use View, Closure, ArrayAccess;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Renderable;
 
 class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable {
 
 	protected $content_field = null;
 
-	public function __construct()
+    /** @var \Illuminate\Config\Repository */
+    protected $config;
+
+	public function __construct($config)
 	{
-		$cache = App::make('path.storage').'/views';
-		$compiler = new DbBladeCompiler(App::make('files'), $cache);
-		$this->engine = new CompilerEngine($compiler);
+    $this->config = $config;
 	}
+
+    public function setEngine($compiler)
+        {
+        $this->engine = $compiler;
+        return $this;
+        }
 
 	/**
 	 * Get a evaluated view contents for the given view.
@@ -34,7 +36,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable {
 		$this->path = $view;
 		$this->data = array_merge($mergeData, $this->parseData($data));
 		if ( !is_null($content_field) ) $this->content_field = $content_field;
-		else $this->content_field = Config::get('db-blade-compiler::model_default_field');
+		else $this->content_field = $this->config->get('db-blade-compiler.model_default_field');
 
 		return $this;
 	}
@@ -90,7 +92,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable {
 
 	protected function getContents()
 	{
-		$field = Config::get('db-blade-compiler::model_property');
+		$field = $this->config->get('db-blade-compiler.model_property');
 		$this->path->{$field} = $this->content_field;
 
 		return parent::getContents();

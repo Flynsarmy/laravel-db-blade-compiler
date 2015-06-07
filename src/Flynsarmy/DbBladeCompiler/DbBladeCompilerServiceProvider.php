@@ -1,6 +1,7 @@
 <?php namespace Flynsarmy\DbBladeCompiler;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Engines\CompilerEngine;
 
 class DbBladeCompilerServiceProvider extends ServiceProvider {
 
@@ -18,7 +19,11 @@ class DbBladeCompilerServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('flynsarmy/db-blade-compiler');
+    $config_path = __DIR__ . '/../../../config/db-blade-compiler.php';
+    $this->publishes([$config_path => config_path('db-blade-compiler.php')], 'config');
+
+    $views_path = __DIR__ . '/../../../config/.gitkeep';
+    $this->publishes([$views_path => storage_path('app/db-blade-compiler/views/.gitkeep')]);
 	}
 
 	/**
@@ -28,7 +33,24 @@ class DbBladeCompilerServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bind('dbview', 'Flynsarmy\DbBladeCompiler\DbView');
+    $config_path = __DIR__ . '/../../../config/db-blade-compiler.php';
+    $this->mergeConfigFrom($config_path, 'db-blade-compile');
+
+    $this->app['dbview'] = $this->app->share(function($app)
+        {
+        $cache_path = storage_path('app/db-blade-compiler/views');
+
+        $db_view = new DbView($app['config']);
+        $compiler = new DbBladeCompiler($app['files'], $cache_path, $app['config']);
+        $db_view->setEngine(new CompilerEngine($compiler));
+
+        return $db_view;
+        });
+    $this->app->booting(function()
+        {
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('DbView', 'Flynsarmy\DbBladeCompiler\Facades\DbView');
+        });
 	}
 
 	/**

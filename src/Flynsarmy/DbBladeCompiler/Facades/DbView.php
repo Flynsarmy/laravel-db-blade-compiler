@@ -9,5 +9,9 @@ class DbView extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor() { return 'dbview'; }
+	protected static function getFacadeAccessor()
+        {
+        return 'dbview';
+        }
+
 }
