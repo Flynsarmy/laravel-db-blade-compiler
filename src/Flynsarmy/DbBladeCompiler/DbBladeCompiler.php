@@ -75,7 +75,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
 	 */
 	public function isExpired($path)
 	{
-    if(!$this->config->get('cache'))
+    if(!$this->config->get('db-blade-compiler.cache'))
         {
         return true;
         }
