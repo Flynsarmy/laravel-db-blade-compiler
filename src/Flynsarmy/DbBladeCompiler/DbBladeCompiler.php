@@ -12,7 +12,11 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     public function __construct($filesystem, $cache_path, $config)
         {
         parent::__construct($filesystem, $cache_path);
-        $this->config = $config;
+        $this->rawTags     = Blade::getRawTags();
+        $this->contentTags = Blade::getContentTags();
+        $this->escapedTags = Blade::getEscapedContentTags();
+        $this->extensions  = Blade::getExtensions();
+        $this->config      = $config;
         }
 
 	/**
@@ -75,7 +79,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
 	 */
 	public function isExpired($path)
 	{
-    if(!$this->config->get('cache'))
+    if(!$this->config->get('db-blade-compiler.cache'))
         {
         return true;
         }
