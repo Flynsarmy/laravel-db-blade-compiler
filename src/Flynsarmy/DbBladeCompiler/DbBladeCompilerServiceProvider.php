@@ -41,7 +41,7 @@ class DbBladeCompilerServiceProvider extends ServiceProvider {
         $cache_path = storage_path('app/db-blade-compiler/views');
 
         $db_view = new DbView($app['config']);
-        $compiler = new DbBladeCompiler($app['files'], $cache_path, $app['config']);
+        $compiler = new DbBladeCompiler($app['files'], $cache_path, $app['config'], $app);
         $db_view->setEngine(new CompilerEngine($compiler));
 
         return $db_view;

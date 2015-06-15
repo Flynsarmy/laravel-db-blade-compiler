@@ -9,15 +9,18 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     /** @var \Illuminate\Config\Repository */
     protected $config;
 
-    public function __construct($filesystem, $cache_path, $config)
-        {
+    public function __construct($filesystem, $cache_path, $config, $app)
+    {
+    	// Get Current Blade Instance
+    	$blade = $app->make('blade.compiler');
+
         parent::__construct($filesystem, $cache_path);
-        $this->rawTags     = Blade::getRawTags();
-        $this->contentTags = Blade::getContentTags();
-        $this->escapedTags = Blade::getEscapedContentTags();
-        $this->extensions  = Blade::getExtensions();
+        $this->rawTags     = $blade->getRawTags();
+        $this->contentTags = $blade->getContentTags();
+        $this->escapedTags = $blade->getEscapedContentTags();
+        $this->extensions  = $blade->getExtensions();
         $this->config      = $config;
-        }
+    }
 
 	/**
 	 * Compile the view at the given path.
