@@ -15,12 +15,12 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     	$blade = $app->make('blade.compiler');
 
         parent::__construct($filesystem, $cache_path);
-        $this->rawTags     		= $blade->getRawTags();
-        $this->contentTags 		= $blade->getContentTags();
-        $this->escapedTags 		= $blade->getEscapedContentTags();
-        $this->extensions  		= $blade->getExtensions();
+        $this->rawTags          = $blade->getRawTags();
+        $this->contentTags      = $blade->getContentTags();
+        $this->escapedTags      = $blade->getEscapedContentTags();
+        $this->extensions       = $blade->getExtensions();
         $this->customDirectives = $blade->getCustomDirectives();
-        $this->config      		= $config;
+        $this->config           = $config;
     }
 
 	/**
