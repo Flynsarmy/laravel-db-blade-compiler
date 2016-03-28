@@ -35,6 +35,10 @@ After updating composer, add the ServiceProvider to the providers array in app/c
 
     'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
 
+and the Facade to the aliases array in the same file
+
+    'DbView'          => 'Flynsarmy\DbBladeCompiler\Facades\DbView',
+
 You have to also publish the config-file
 
     php artisan vendor:publish
