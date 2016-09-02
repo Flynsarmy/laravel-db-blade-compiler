@@ -3,6 +3,7 @@
 use View, Closure, ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Model;
 
 class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
 {
@@ -27,15 +28,15 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Get a evaluated view contents for the given view.
      *
-     * @param  Illuminate\Database\Eloquent\Model $view
-     * @param  array                              $data
-     * @param  array                              $mergeData
-     * @param  string                             $content_field
+     * @param  Model  $model
+     * @param  array  $data
+     * @param  array  $mergeData
+     * @param  string $content_field
      * @return DbView
      */
-    public function make($view, $data = array(), $mergeData = array(), $content_field = null)
+    public function make(Model $model, $data = array(), $mergeData = array(), $content_field = null)
     {
-        $this->path = $view;
+        $this->path = $model;
         $this->data = array_merge($mergeData, $this->parseData($data));
         if (!is_null($content_field)) {
             $this->content_field = $content_field;
