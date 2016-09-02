@@ -3,6 +3,7 @@
 use View, Closure, ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\View\Engines\EngineInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
@@ -18,7 +19,11 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
         $this->config = $config;
     }
 
-    public function setEngine($compiler)
+    /**
+     * @param EngineInterface $compiler
+     * @return DbView
+     */
+    public function setEngine(EngineInterface $compiler)
     {
         $this->engine = $compiler;
 
