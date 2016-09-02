@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "DDucro\\DbBladeCompiler\\": "src/"
+            "Flynsarmy\\DbBladeCompiler\\": "src/"
         }
     },
     "minimum-stability": "stable"
