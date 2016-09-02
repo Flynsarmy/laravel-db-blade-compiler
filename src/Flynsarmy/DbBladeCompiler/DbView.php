@@ -31,7 +31,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
      * @param  array                              $data
      * @param  array                              $mergeData
      * @param  string                             $content_field
-     * @return \Illuminate\View\View
+     * @return DbView
      */
     public function make($view, $data = array(), $mergeData = array(), $content_field = null)
     {
@@ -46,6 +46,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
         return $this;
     }
 
+    /**
+     * @param  string $content_field
+     * @return DbView
+     */
     public function field($content_field)
     {
         $this->content_field = $content_field;
