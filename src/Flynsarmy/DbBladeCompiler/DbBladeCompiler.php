@@ -1,15 +1,17 @@
 <?php namespace Flynsarmy\DbBladeCompiler;
 
+use Illuminate\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Compilers\CompilerInterface;
 
 class DbBladeCompiler extends BladeCompiler implements CompilerInterface
 {
 
-    /** @var \Illuminate\Config\Repository */
+    /** @var Repository */
     protected $config;
 
-    public function __construct($filesystem, $cache_path, $config, $app)
+    public function __construct($filesystem, $cache_path, Repository $config)
     {
         // Get Current Blade Instance
         $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
@@ -26,7 +28,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     /**
      * Compile the view at the given path.
      *
-     * @param  Illuminate\Database\Eloquent\Model $path
+     * @param  Model $path
      * @return void
      */
     public function compile($path)
@@ -48,7 +50,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     /**
      * Get the path to the compiled version of a view.
      *
-     * @param  Illuminate\Database\Eloquent\Model $model
+     * @param  Model $model
      * @return string
      */
     public function getCompiledPath($model)

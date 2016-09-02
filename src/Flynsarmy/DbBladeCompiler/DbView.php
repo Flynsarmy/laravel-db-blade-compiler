@@ -4,7 +4,6 @@ use View, Closure, ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Config\Repository;
-use Illuminate\View\Engines\EngineInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
@@ -15,20 +14,16 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /** @var Repository */
     protected $config;
 
-    public function __construct(Repository $config)
+    /**
+     * DbView constructor.
+     *
+     * @param Repository            $config
+     * @param DbBladeCompilerEngine $engine
+     */
+    public function __construct(Repository $config, DbBladeCompilerEngine $engine)
     {
         $this->config = $config;
-    }
-
-    /**
-     * @param EngineInterface $compiler
-     * @return DbView
-     */
-    public function setEngine(EngineInterface $compiler)
-    {
-        $this->engine = $compiler;
-
-        return $this;
+        $this->engine = $engine;
     }
 
     /**
