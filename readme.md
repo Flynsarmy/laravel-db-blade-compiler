@@ -8,36 +8,36 @@ This package generates and returns a compiled view from a blade-syntax field in 
 
 ### Installation (Laravel v < 5)
 
-Require this package in your composer.json and run composer update (or run `composer require dducro/db-blade-compiler:1.*` directly):
+Require this package in your composer.json and run composer update (or run `composer require flynsarmy/db-blade-compiler:1.*` directly):
 
-    "dducro/db-blade-compiler": "1.*"
+    "flynsarmy/db-blade-compiler": "1.*"
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
-    'dducro\DbBladeCompiler\DbBladeCompilerServiceProvider',
+    'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
 
 and the Facade to the aliases array in the same file
 
-    'DbView'          => 'dducro\DbBladeCompiler\Facades\DbView',
+    'DbView'          => 'Flynsarmy\DbBladeCompiler\Facades\DbView',
 
 You can also optionally publish the config-file
 
-    php artisan config:publish dducro/db-blade-compiler
+    php artisan config:publish flynsarmy/db-blade-compiler
 
 
 ### Installation (Laravel 5.x)
 
-Require this package in your composer.json and run composer update (or run `composer require dducro/db-blade-compiler:2.*` directly):
+Require this package in your composer.json and run composer update (or run `composer require flynsarmy/db-blade-compiler:2.*` directly):
 
-    "dducro/db-blade-compiler": "2.*"
+    "flynsarmy/db-blade-compiler": "2.*"
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
-    'dducro\DbBladeCompiler\DbBladeCompilerServiceProvider',
+    'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
 
 and the Facade to the aliases array in the same file
 
-    'DbView'          => 'dducro\DbBladeCompiler\Facades\DbView',
+    'DbView'          => 'Flynsarmy\DbBladeCompiler\Facades\DbView',
 
 You have to also publish the config-file
 
