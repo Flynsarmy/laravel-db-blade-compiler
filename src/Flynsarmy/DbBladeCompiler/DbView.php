@@ -3,6 +3,7 @@
 use View, Closure, ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Config\Repository;
 use Illuminate\View\Engines\EngineInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,10 +12,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
 
     protected $content_field = null;
 
-    /** @var \Illuminate\Config\Repository */
+    /** @var Repository */
     protected $config;
 
-    public function __construct($config)
+    public function __construct(Repository $config)
     {
         $this->config = $config;
     }
