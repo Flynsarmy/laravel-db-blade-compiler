@@ -1,13 +1,19 @@
 {
-    "name": "dducro/db-blade-compiler",
+    "name": "flynsarmy/db-blade-compiler",
     "description": "Render Blade templates from Eloquent Model Fields",
     "keywords": ["laravel", "blade", "compiler", "eloquent", "model"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Daniël Ducro",
-            "email": "daniel@pionect.nl"
+            "name": "Flyn San",
+            "email": "flynsarmy@gmail.com"
         }
+      ,
+      {
+        "name": "Ebrahim Radi",
+        "email": "ebrahim.radi@gmail.com",
+        "homepage": "http://me2bits.com"
+      }
     ],
     "require": {
         "php": ">=5.3.0"
