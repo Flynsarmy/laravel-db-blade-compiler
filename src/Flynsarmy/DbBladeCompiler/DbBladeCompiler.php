@@ -1,32 +1,34 @@
 <?php namespace Flynsarmy\DbBladeCompiler;
 
+use Illuminate\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Compilers\CompilerInterface;
 
 class DbBladeCompiler extends BladeCompiler implements CompilerInterface
 {
 
-    /** @var \Illuminate\Config\Repository */
+    /** @var Repository */
     protected $config;
 
-    public function __construct($filesystem, $cache_path, $config, $app)
+    public function __construct($filesystem, $cache_path, Repository $config)
     {
         // Get Current Blade Instance
         $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
 
         parent::__construct($filesystem, $cache_path);
-        $this->rawTags = $blade->getRawTags();
-        $this->contentTags = $blade->getContentTags();
-        $this->escapedTags = $blade->getEscapedContentTags();
-        $this->extensions = $blade->getExtensions();
+        $this->rawTags          = $blade->getRawTags();
+        $this->contentTags      = $blade->getContentTags();
+        $this->escapedTags      = $blade->getEscapedContentTags();
+        $this->extensions       = $blade->getExtensions();
         $this->customDirectives = $blade->getCustomDirectives();
-        $this->config = $config;
+        $this->config           = $config;
     }
 
     /**
      * Compile the view at the given path.
      *
-     * @param  Illuminate\Database\Eloquent\Model  $path
+     * @param  Model $path
      * @return void
      */
     public function compile($path)
@@ -48,7 +50,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     /**
      * Get the path to the compiled version of a view.
      *
-     * @param  Illuminate\Database\Eloquent\Model  $model
+     * @param  Model $model
      * @return string
      */
     public function getCompiledPath($model)
@@ -61,7 +63,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
          * e.g db_table_name_id_4
          */
         $field = $this->config->get('db-blade-compiler.model_property');
-        $path = 'db_' . $model->getTable() . '_' . $model->{$field} . '_';
+        $path  = 'db_' . $model->getTable() . '_' . $model->{$field} . '_';
         if (is_null($model->primaryKey)) {
             $path .= $model->id;
         } else if (is_array($model->primaryKey)) {
@@ -78,7 +80,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
     /**
      * Determine if the view at the given path is expired.
      *
-     * @param  string  $path
+     * @param  string $path
      * @return bool
      */
     public function isExpired($path)
