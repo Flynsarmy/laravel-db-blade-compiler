@@ -36,10 +36,10 @@ class DbBladeCompilerServiceProvider extends ServiceProvider
     {
         $config_path = __DIR__ . '/../../../config/db-blade-compiler.php';
         $this->mergeConfigFrom($config_path, 'db-blade-compiler');
-
-        $this->app['dbview'] = $this->app->share(function ($app) {
-            return $app->make(DbView::class);
-        });
+        
+        $this->app->singleton(DbView::class);
+        
+        $this->app->alias(DbView::class, 'dbview');
 
         $this->app->bind(DbBladeCompiler::class, function($app) {
             $cache_path = storage_path('app/db-blade-compiler/views');
