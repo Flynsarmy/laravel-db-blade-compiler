@@ -17,9 +17,9 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
         $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
 
         parent::__construct($filesystem, $cache_path);
-        $this->rawTags          = $blade->getRawTags();
-        $this->contentTags      = $blade->getContentTags();
-        $this->escapedTags      = $blade->getEscapedContentTags();
+        $this->rawTags          = $blade->rawTags;
+        $this->contentTags      = array_map('stripcslashes', $blade->contentTags);
+        $this->escapedTags      = array_map('stripcslashes', $blade->escapedTags);
         $this->extensions       = $blade->getExtensions();
         $this->customDirectives = $blade->getCustomDirectives();
         $this->config           = $config;
