@@ -47,10 +47,6 @@ class DbBladeCompilerServiceProvider extends ServiceProvider
             return new DbBladeCompiler($app['files'], $cache_path, $app['config']);
         });
 
-        $this->app->booting(function () {
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias('DbView', DbView::class);
-        });
     }
 
     /**
