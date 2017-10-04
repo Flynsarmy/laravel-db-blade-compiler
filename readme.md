@@ -29,7 +29,7 @@ You can also optionally publish the config-file
 
 Require this package in your composer.json and run composer update (or run `composer require flynsarmy/db-blade-compiler:2.*` directly):
 
-    "flynsarmy/db-blade-compiler": "2.*"
+    "flynsarmy/db-blade-compiler": "*"
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
