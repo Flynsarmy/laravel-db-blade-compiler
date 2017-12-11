@@ -31,8 +31,12 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
      * @param  Model $path
      * @return void
      */
-    public function compile($path)
+    public function compile($path = null)
     {
+        if (is_null($path)) {
+            return;
+        }
+
         // Defaults to '__db_blade_compiler_content_field' property
         $property = $this->config->get('db-blade-compiler.model_property');
         // Defaults to 'contents' column
