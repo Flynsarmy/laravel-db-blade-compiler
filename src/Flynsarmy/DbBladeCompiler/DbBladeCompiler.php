@@ -47,7 +47,16 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
         $contents = $this->compileString($string);
 
         if (!is_null($this->cachePath)) {
-            $this->files->put($this->getCompiledPath($path), $contents);
+            
+            // check is directory exist
+            $compiledPath = $this->getCompiledPath($path);
+            if (!$this->files->exists($compiledPath) && $this->files->dirname($compiledPath) !== '.') {
+                $defaultDirMode = 0775;
+        
+                $this->files->makeDirectory(dirname($path), $defaultDirMode, true);
+            }
+    
+            $this->files->put($compiledPath, $contents);
         }
     }
 
