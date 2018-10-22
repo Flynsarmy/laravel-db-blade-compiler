@@ -45,19 +45,24 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
         $string = $path->{$column};
         // Compile to PHP
         $contents = $this->compileString($string);
-
-        if (!is_null($this->cachePath)) {
-            
-            // check is directory exist
-            $compiledPath = $this->getCompiledPath($path);
-            if (!$this->files->exists($compiledPath) && $this->files->dirname($compiledPath) !== '.') {
-                $defaultDirMode = 0775;
-        
-                $this->files->makeDirectory(dirname($path), $defaultDirMode, true);
-            }
     
-            $this->files->put($compiledPath, $contents);
+        if (is_null($this->cachePath)) {
+            return;
         }
+    
+        $complitedPath = $this->getCompiledPath($path);
+    
+        // Check is directory exist
+        $parentDir = $this->files->dirname($complitedPath);
+        if($parentDir !== '.' && !$this->files->exists($parentDir)){
+            // Laravel require mode as second attr
+            $defaultDirMode = 0775;
+        
+            // Create directory when didn't exist
+            $this->files->makeDirectory(dirname($complitedPath), $defaultDirMode, true);
+        }
+    
+        $this->files->put($complitedPath, $contents);
     }
 
     /**
