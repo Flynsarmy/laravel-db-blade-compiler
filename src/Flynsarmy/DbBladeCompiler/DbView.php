@@ -129,7 +129,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
      *
      * @return array
      */
-    protected function gatherData()
+    public function gatherData()
     {
         $data = array_merge(View::getShared(), $this->data);
 
