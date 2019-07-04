@@ -22,5 +22,15 @@
             "Flynsarmy\\DbBladeCompiler\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flynsarmy\\DbBladeCompiler\\DbBladeCompilerServiceProvider"
+            ],
+            "aliases": {
+                "DbView": "Flynsarmy\\DbBladeCompiler\\Facades\\DbView"
+            }
+        }
+    }
 }
