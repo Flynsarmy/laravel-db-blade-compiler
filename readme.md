@@ -31,11 +31,13 @@ Require this package in your composer.json and run composer update (or run `comp
 
     "flynsarmy/db-blade-compiler": "*"
 
-After updating composer, add the ServiceProvider to the providers array in app/config/app.php
+The DbBladeCompilerServiceProvider is auto-discovered and registered by default, but if you want to register it yourself:  
+add the ServiceProvider to the providers array in app/config/app.php
 
     'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
 
-and the Facade to the aliases array in the same file
+and the DbView facade is also auto-discovered, but if you want to add it manually:  
+add the Facade to the aliases array in config/app.php
 
     'DbView'          => 'Flynsarmy\DbBladeCompiler\Facades\DbView',
 
