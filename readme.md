@@ -43,7 +43,7 @@ add the Facade to the aliases array in config/app.php
 
 You have to also publish the config-file
 
-    php artisan vendor:publish
+    php artisan vendor:publish --provider="Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider"
 
 
 ### Usage
