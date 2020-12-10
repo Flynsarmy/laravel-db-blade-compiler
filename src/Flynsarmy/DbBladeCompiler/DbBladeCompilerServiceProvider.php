@@ -20,8 +20,9 @@ class DbBladeCompilerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $config_path = __DIR__ . '/../../../config/db-blade-compiler.php';
-        $this->publishes([$config_path => config_path('db-blade-compiler.php')], 'config');
+        $this->publishes([$config_path => app()->configPath('db-blade-compiler.php')], 'config');
 
         $views_path = __DIR__ . '/../../../config/.gitkeep';
         $this->publishes([$views_path => storage_path('app/db-blade-compiler/views/.gitkeep')]);
@@ -36,14 +37,16 @@ class DbBladeCompilerServiceProvider extends ServiceProvider
     {
         $config_path = __DIR__ . '/../../../config/db-blade-compiler.php';
         $this->mergeConfigFrom($config_path, 'db-blade-compiler');
-        
+
         $this->app->singleton(DbView::class);
-        
+
         $this->app->alias(DbView::class, 'dbview');
 
-        $this->app->bind(DbBladeCompiler::class, function($app) {
+        $this->app->bind(DbBladeCompiler::class, function(&$app) {
+            $app=app();
             $cache_path = storage_path('app/db-blade-compiler/views');
 
+            
             return new DbBladeCompiler($app['files'], $cache_path, $app['config']);
         });
 

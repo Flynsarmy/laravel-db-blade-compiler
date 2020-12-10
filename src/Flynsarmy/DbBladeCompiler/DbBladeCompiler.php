@@ -13,8 +13,10 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
 
     public function __construct($filesystem, $cache_path, Repository $config)
     {
+
         // Get Current Blade Instance
-        $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
+//        $blade = app('view')->getEngineResolver()->resolve('blade')->getCompiler();
+        $blade =  view()->getEngineResolver()->resolve('blade')->getCompiler();
 
         parent::__construct($filesystem, $cache_path);
         $this->rawTags          = $blade->rawTags;
@@ -38,10 +40,12 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
         }
 
         // Defaults to '__db_blade_compiler_content_field' property
-        $property = $this->config->get('db-blade-compiler.model_property');
+        $property =  config()->get('db-blade-compiler.model_property');
         // Defaults to 'contents' column
+
         $column = $path->{$property};
         // Grab the column contents
+
         $string = $path->{$column};
         // Compile to PHP
         $contents = $this->compileString($string);
@@ -66,7 +70,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
          *
          * e.g db_table_name_id_4
          */
-        $field = $this->config->get('db-blade-compiler.model_property');
+        $field = config()->get('db-blade-compiler.model_property');
         $path  = 'db_' . $model->getTable() . '_' . $model->{$field} . '_';
         if (is_null($model->primaryKey)) {
             $path .= $model->id;
@@ -89,7 +93,7 @@ class DbBladeCompiler extends BladeCompiler implements CompilerInterface
      */
     public function isExpired($path)
     {
-        if (!$this->config->get('db-blade-compiler.cache')) {
+        if (!config()->get('db-blade-compiler.cache')) {
             return true;
         }
         $compiled = $this->getCompiledPath($path);
