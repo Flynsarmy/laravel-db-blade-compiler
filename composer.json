@@ -1,17 +1,17 @@
 {
-    "name": "flynsarmy/db-blade-compiler",
+    "name": "ahmed1amen/db-blade-compiler",
     "description": "Render Blade templates from Eloquent Model Fields",
     "keywords": ["laravel", "blade", "compiler", "eloquent", "model"],
     "license": "MIT",
     "authors": [
         {
             "name": "Flyn San",
-            "email": "flynsarmy@gmail.com"
+            "email": "ahmed1amen.g@gmail.com"
         },
         {
-            "name": "Ebrahim Radi",
-            "email": "ebrahim.radi@gmail.com",
-            "homepage": "http://me2bits.com"
+            "name": "ahmed amne",
+            "email": "ahmed1amen.g@Gmail.com",
+            "homepage": "https://ahmedamen.com"
         }
     ],
     "require": {
