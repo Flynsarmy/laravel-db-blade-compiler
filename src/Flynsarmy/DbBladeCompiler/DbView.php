@@ -17,7 +17,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * DbView constructor.
      *
-     * @param Repository            $config
+     * @param Repository $config
      * @param DbBladeCompilerEngine $engine
      */
     public function __construct(Repository $config, DbBladeCompilerEngine $engine)
@@ -29,10 +29,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Get a evaluated view contents for the given view.
      *
-     * @param  Model  $model
-     * @param  array  $data
-     * @param  array  $mergeData
-     * @param  string $content_field
+     * @param Model $model
+     * @param array $data
+     * @param array $mergeData
+     * @param string $content_field
      * @return DbView
      */
     public function make(Model $model, $data = array(), $mergeData = array(), $content_field = null)
@@ -49,7 +49,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     }
 
     /**
-     * @param  string $content_field
+     * @param string $content_field
      * @return DbView
      */
     public function field($content_field)
@@ -62,7 +62,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Get the string contents of the view.
      *
-     * @param  callable $callback
+     * @param callable $callback
      * @return string
      */
     public function render(callable $callback = null)
@@ -75,9 +75,9 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
         // done rendering all views so that there is nothing left hanging over when
         // anothoer view is rendered in the future by the application developers.
         // Before flushing, check Laravel version for correct method use
-        if ( version_compare(app()->version(), '5.4.0') >= 0 ) 
+        if (version_compare(app()->version(), '5.4.0') >= 0)
             View::flushStateIfDoneRendering();
-        else 
+        else
             View::flushSectionsIfDoneRendering();
 
         return $response ?: $contents;
@@ -107,7 +107,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
 
     protected function getContents()
     {
-        $field                = $this->config->get('db-blade-compiler.model_property');
+        $field = $this->config->get('db-blade-compiler.model_property');
         $this->path->{$field} = $this->content_field;
 
         return parent::getContents();
@@ -116,7 +116,7 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Parse the given data into a raw array.
      *
-     * @param  mixed $data
+     * @param mixed $data
      * @return array
      */
     protected function parseData($data)
@@ -145,9 +145,9 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Add a view instance to the view data.
      *
-     * @param  string $key
-     * @param  string $view
-     * @param  array  $data
+     * @param string $key
+     * @param string $view
+     * @param array $data
      * @return \Illuminate\View\View
      */
     public function nest($key, $view, array $data = array())
@@ -158,10 +158,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Determine if a piece of data is bound.
      *
-     * @param  string $key
+     * @param string $key
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return array_key_exists($key, $this->data);
     }
@@ -169,10 +169,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Get a piece of bound data to the view.
      *
-     * @param  string $key
+     * @param string $key
      * @return mixed
      */
-    public function offsetGet($key)
+    public function offsetGet($key): mixed
     {
         return $this->data[$key];
     }
@@ -180,11 +180,11 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Set a piece of data on the view.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      * @return void
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->with($key, $value);
     }
@@ -192,10 +192,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     /**
      * Unset a piece of data from the view.
      *
-     * @param  string $key
+     * @param string $key
      * @return void
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         unset($this->data[$key]);
     }
