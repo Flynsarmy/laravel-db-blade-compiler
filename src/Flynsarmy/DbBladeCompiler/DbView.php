@@ -109,8 +109,10 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
     {
         $field = $this->config->get('db-blade-compiler.model_property');
         $this->path->{$field} = $this->content_field;
+        $compiler = $this->engine->getCompiler();
+        $compiler->compile($this->path);
 
-        return parent::getContents();
+        return $this->engine->getContent($compiler->getCompiledPath($this->path), $this->data);
     }
 
     /**

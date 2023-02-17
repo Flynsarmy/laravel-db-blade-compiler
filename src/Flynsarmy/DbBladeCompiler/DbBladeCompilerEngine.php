@@ -13,4 +13,14 @@ class DbBladeCompilerEngine extends CompilerEngine
     {
         parent::__construct($bladeCompiler);
     }
+    
+    /**
+     * @param string $compiled_path
+     * @param array $data
+     * @return string
+     */
+    public function getContent(string $compiled_path, array $data)
+    {
+        return $this->evaluatePath($compiled_path, $data);
+    }
 }
