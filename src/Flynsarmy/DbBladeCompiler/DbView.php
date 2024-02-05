@@ -1,12 +1,15 @@
 <?php namespace Flynsarmy\DbBladeCompiler;
 
-use View, Closure, ArrayAccess;
+use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\View\View as BaseView;
+use Illuminate\Support\Facades\View;
+use Throwable;
 
-class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
+class DbView extends BaseView implements ArrayAccess, Renderable
 {
 
     protected $content_field = null;
@@ -67,20 +70,33 @@ class DbView extends \Illuminate\View\View implements ArrayAccess, Renderable
      */
     public function render(callable $callback = null)
     {
-        $contents = $this->renderContents();
+        $usesState = version_compare(app()->version(), '5.4.0') >= 0;
 
-        $response = isset($callback) ? $callback($this, $contents) : null;
+        try {
+            $contents = $this->renderContents();
 
-        // Once we have the contents of the view, we will flush the sections if we are
-        // done rendering all views so that there is nothing left hanging over when
-        // anothoer view is rendered in the future by the application developers.
-        // Before flushing, check Laravel version for correct method use
-        if (version_compare(app()->version(), '5.4.0') >= 0)
-            View::flushStateIfDoneRendering();
-        else
-            View::flushSectionsIfDoneRendering();
+            $response = isset($callback) ? $callback($this, $contents) : null;
 
-        return $response ?: $contents;
+            // Once we have the contents of the view, we will flush the sections if we are
+            // done rendering all views so that there is nothing left hanging over when
+            // anothoer view is rendered in the future by the application developers.
+            // Before flushing, check Laravel version for correct method use
+            if ($usesState) {
+                View::flushStateIfDoneRendering();
+            } else {
+                View::flushSectionsIfDoneRendering();
+            }
+
+            return $response ?: $contents;
+        } catch (Throwable $exception) {
+            if ($usesState) {
+                View::flushState();
+            } else {
+                View::flushSections();
+            }
+
+            throw $exception;
+        }
     }
 
     /**
